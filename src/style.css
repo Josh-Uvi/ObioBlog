@@ -140,6 +140,7 @@ strong {
 section,
 .section {
   padding: min(10vh, 10em) 0;
+  min-height: calc(100vh - 70px);
 }
 
 
