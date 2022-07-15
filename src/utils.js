@@ -1,35 +1,26 @@
 "use strict"
+
+
 let newsletterForm = document.getElementById("newsletter-form");
-let newsletterFormData = {};
-
-const handleSubmit = (e) => {
-    e.preventDefault();
-    const newsletterInputField = e.target.elements.newsletterInput.value;
-    newsletterFormData.email = newsletterInputField;
-    newsletterFormData.time = new Date().toLocaleString();
-    const newObj = JSON.stringify(newsletterFormData)
-    const options = {
+const processForm = form => {
+    const data = new FormData(form)
+    data.append('form-name', 'newsletter');
+    fetch('/', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(newObj).toString(),
-    };
-
-    console.log("formData: " + newObj)
-
-    fetch('/', options)
-        .then(function () {
-            newsletterForm.innerHTML = `<div">Almost there! Check your inbox for a confirmation e-mail.</div>`;
-            newsletterForm.reset();
+        body: data,
+    })
+        .then(() => {
+            form.innerHTML = `<div class="form--success">Almost there! Check your inbox for a confirmation e-mail.</div>`;
         })
-        .catch(function (error) {
-            console.error(error);
-        });
-
-    return false;
-};
-
+        .catch(error => {
+            form.innerHTML = `<div class="form--error">Error: ${error}</div>`;
+        })
+}
 
 if (newsletterForm) {
-    newsletterForm.addEventListener("submit", handleSubmit)
+    newsletterForm.addEventListener("submit", (e) => {
+        e.preventDefault();
+        processForm(newsletterForm)
+    })
 }
 
