@@ -52,14 +52,8 @@ layout: 'base.njk'
           name="newsletter"
           method="POST"
           class="sign-up-form"
-          data-netlify="true"
-          netlify-honeypot="bot-field">
-          <input type="hidden" name="form-name" value="newsletter">
-          <div hidden>
-            <label>
-              Don’t fill this out if you're human: <input name="bot-field"/>
-            </label>
-          </div>
+          data-netlify="true">
+          <input type="hidden" name="form-name" value="newsletter"/>
           <input name="newsletterInput" type="email" placeholder="Email" class="text-input" required/>
           <button type="submit" class="button">Sign up</button>
         </form>
