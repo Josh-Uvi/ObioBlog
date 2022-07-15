@@ -1,4 +1,4 @@
-
+"use strict"
 let newsletterForm = document.getElementById("newsletter-form");
 let newsletterFormData = {};
 
@@ -11,16 +11,15 @@ const handleSubmit = (e) => {
     const options = {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: newObj
+        body: new URLSearchParams(newObj).toString(),
     };
 
     console.log("formData: " + newObj)
 
     fetch('/', options)
         .then(function () {
-            newsletterForm.reset();
             newsletterForm.innerHTML = `<div">Almost there! Check your inbox for a confirmation e-mail.</div>`;
-            
+            newsletterForm.reset();
         })
         .catch(function (error) {
             console.error(error);
